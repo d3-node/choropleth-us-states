@@ -1,7 +1,7 @@
 {
   "name": "@d3-node/choropleth-us-states",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "D3-Node US States choropleth",
   "main": "index.js",
   "scripts": {
