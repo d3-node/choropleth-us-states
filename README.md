@@ -20,10 +20,10 @@ const data = d3nMap.csvParse(csv)
 
 const stateNameField = 'State' // optional, default = 1st column
 const metricField = 'Population' // optional, default = 2nd column
-const colors = [
-  'rgb(255,245,240)', 'rgb(254,224,210)', 'rgb(252,187,161)',
-  'rgb(252,146,114)', 'rgb(251,106,74)', 'rgb(239,59,44)',
-  'rgb(203,24,29)', 'rgb(165,15,21)', 'rgb(103,0,13)'
+const colors = [ // 9-color scheme (blue)
+  '#f7fbff', '#deebf7', '#c6dbef',
+  '#9ecae1', '#6baed6', '#4292c6',
+  '#2171b5', '#08519c', '#08306b'
 ]
 const scale = [ // color buckets for state populations
   0, 600000, 800000, 1500000, 2500000, 5000000, 9000000, 20000000, 400000000
