@@ -7,14 +7,26 @@ const defaultStyles = `
     .states { pointer-events: none; fill: #ccc; stroke: #fff; stroke-width: 1px; stroke-linejoin: round;}
 `
 
-function statesMap ({ stateNameField = 'State', valueField = 'Population', data, colors, scale, styles = defaultStyles } = {}) {
+function statesMap ({ data, colors, scale, stateNameField = 0, metricField = 1, styles = defaultStyles } = {}) {
   const d3n = new D3Node({ styles })
   const projection = d3.geoAlbersUsa()
   const path = d3.geoPath().projection(projection)
 
+  let stateId = stateNameField
+  if (Number.isInteger(stateNameField)) {
+    stateId = Object.keys(data[0])[stateNameField]
+  }
+
+  let metricProp = metricField
+  if (Number.isInteger(metricField)) {
+    metricProp = Object.keys(data[0])[metricField]
+  }
+
   // create Map object for the State lookup
   const dataMap = new Map()
-  data.forEach((item) => dataMap.set(item[stateNameField], item[valueField]))
+  data.forEach((item) => {
+    dataMap.set(item[stateId], item[metricProp])
+  })
 
   // State color fill
   const fill = function (d) {
@@ -22,8 +34,8 @@ function statesMap ({ stateNameField = 'State', valueField = 'Population', data,
       .domain(scale)
       .range(colors)
 
-    const statePopulation = dataMap.get(d.properties.STATE)
-    return colorScale(statePopulation / 100000)
+    const stateMetric = dataMap.get(d.properties.STATE)
+    return colorScale(stateMetric)
   }
 
   const svg = d3n.createSVG(960, 500)
